@@ -1,7 +1,7 @@
 
 <?php
 // Create connection to Oracle
-$conn = oci_connect("SYSTEM", "azerty", "//localhost/");
+$conn = oci_connect("SYSTEM", "azerty", "//localhost/XE");
 if (!$conn) {
    $m = oci_error();
    echo $m['message'], "\n";
@@ -123,7 +123,16 @@ oci_close($conn);
 			<ul class="categories">
 				<li>
 					<h4>Genre</h4>
-					<ul>
+                                        <ul><?php
+                                      
+                                        
+                                        $stid = oci_parse($conn, 'SELECT nom_genre FROM ALEXIS.GENRE');
+                                        oci_execute($stid);
+                                        
+                                            
+                                            
+                                            
+                                            ?>
 						<li><a href="#">Comics</a></li>
 						<li><a href="#">Science Fiction</a></li>
 						<li><a href="#">Aventure</a></li>
