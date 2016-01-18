@@ -123,40 +123,58 @@ oci_close($conn);
 			<ul class="categories">
 				<li>
 					<h4>Genre</h4>
-                                        <ul><?php
+                                        <ul>
+                                            <?php
                                       
+                                        $conn = oci_connect("SYSTEM", "azerty", "//localhost/XE");
+                                       $select_stmt = "SELECT nom_genre FROM ALEXIS.GENRE";
+                                        $stid  = oci_parse($conn, $select_stmt);
+                                        $result=oci_execute($stid);
+              
+  while($ligne = oci_fetch_assoc($stid))
+   {
+        echo '<li><a href="#">' . $ligne["NOM_GENRE"]. "</a></li>";
+    }
                                         
-                                        $stid = oci_parse($conn, 'SELECT nom_genre FROM ALEXIS.GENRE');
-                                        oci_execute($stid);
-                                        
-                                            
+         oci_free_statement($stid); 
+oci_close($conn);                                    
                                             
                                             
                                             ?>
-						<li><a href="#">Comics</a></li>
+						<!--<li><a href="#">Comics</a></li>
 						<li><a href="#">Science Fiction</a></li>
 						<li><a href="#">Aventure</a></li>
 						<li><a href="#">Jeunesse</a></li>
 						<li><a href="#">Humour</a></li>
 						<li><a href="#">Romantique</a></li>
-						<li><a href="#">Action</a></li>
+						<li><a href="#">Action</a></li>-->
 					</ul>
 				</li>
 				<li>
 					<h4>Auteur</h4>
 					<ul>
-						<li><a href="#">Lorem ipsum dolor</a></li>
-						<li><a href="#">Morbi eget</a></li>
-						<li><a href="#">Nulla egestas</a></li>
-						<li><a href="#">Curabitur venenatis</a></li>
-						<li><a href="#">Ut dictum purus</a></li>
-						<li><a href="#">Curabitur imperdiet</a></li>
-						<li><a href="#">Lorem ipsum dolor</a></li>
-						<li><a href="#">Morbi eget</a></li>
-						<li><a href="#">Nulla egestas</a></li>
-						<li><a href="#">Curabitur venenatis</a></li>
-						<li><a href="#">Ut dictum purus</a></li>
-						<li><a href="#">Curabitur imperdiet</a></li>
+                                            
+                                            
+                                             <?php
+                                      
+                                        $conn = oci_connect("SYSTEM", "azerty", "//localhost/XE");
+                                       $select_stmt2 = "SELECT * FROM ALEXIS.AUTEUR";
+                                        $stid  = oci_parse($conn, $select_stmt2);
+                                        $result=oci_execute($stid);
+              
+  while($ligne2 = oci_fetch_assoc($stid))
+   {
+        echo '<li><a href="#">' . $ligne2['PRENOM_AUTEUR']." ".$ligne2["NOM_AUTEUR"]. "</a></li>";
+    }
+                                        
+         oci_free_statement($stid); 
+oci_close($conn);                                    
+                                            
+                                            
+                                            ?>
+                                            
+                                            
+                                            
 					</ul>
 				</li>
 			</ul>
