@@ -10,8 +10,30 @@ if (!$conn) {
 else {
    print "Connected to Oracle!";
 }
+
+
+ function AchatProduit() {
+   $conn = oci_connect("SYSTEM", "azerty", "//localhost/XE");
+                                       $select_stmt2 = "SELECT * FROM ALEXIS.AUTEUR";
+                                        $stid  = oci_parse($conn, $select_stmt2);
+                                        $result=oci_execute($stid);
+              
+  while($ligne2 = oci_fetch_assoc($stid))
+   {
+        echo '<li><a href="#">' . $ligne2['PRENOM_AUTEUR']." ".$ligne2["NOM_AUTEUR"]. "</a></li>";
+    }
+                                        
+         oci_free_statement($stid); 
+  }
+
+  if (isset($_GET['hello'])) {
+    AchatProduit();
+  }
+
+
 // Close the Oracle connection
 oci_close($conn);
+
 ?>
 
  
@@ -37,7 +59,7 @@ oci_close($conn);
 		<!-- Navigation -->
 		<div id="navigation">
 			<ul>
-				<li><a href="#" class="active">Acceuil</a></li>
+				<li><a href="#" class="active">Accueil</a></li>
 				<li><a href="#">Bande dessinés</a></li>
 				<li><a href="#">Promotions</a></li>
 				<li><a href="#">Profile</a></li>
@@ -186,98 +208,44 @@ oci_close($conn);
 			<div class="products">
 				<h3>Nouveau Produits</h3>
 				<ul>
-					<li>
-						<div class="product">
-							<a href="#" class="info">
-								<span class="holder">
-									<img src="css/images/image01.jpg" alt="" />
-									<span class="book-name">Book Name</span>
-									<span class="author">by John Smith</span>
-									<span class="description">Maecenas vehicula ante eu enim pharetra<br />scelerisque dignissim <br />sollicitudin nisi</span>
+					
+							
+                                                    
+                                                    <?php
+                                      
+                                        $conn = oci_connect("SYSTEM", "azerty", "//localhost/XE");
+                                       $select_stmt3 = "SELECT ID_PRODUIT,TITRE_PRODUIT,IMAGE_PRODUIT,DESCRIPTION_PRODUIT,PRIX_PRODUIT,NOM_AUTEUR,PRENOM_AUTEUR FROM ALEXIS.PRODUIT,ALEXIS.AUTEUR WHERE PRODUIT.ID_AUTEUR=AUTEUR.ID_AUTEUR";
+                                        $stid  = oci_parse($conn, $select_stmt3);
+                                        $result=oci_execute($stid);
+              
+  while($ligne2 = oci_fetch_assoc($stid))
+   {
+        echo '<li><div class="product"><a href="#" class="info"><span class="holder"><img src="css/images/'. $ligne2['IMAGE_PRODUIT'].'" alt="" />
+									<span class="book-name">'. $ligne2['TITRE_PRODUIT'].'</span>
+									<span class="author">par '. $ligne2['NOM_AUTEUR']." ". $ligne2['PRENOM_AUTEUR'].'</span>
+									<span class="description">'. $ligne2['DESCRIPTION_PRODUIT'].'<br /><br /><br /></span>
 								</span>
 							</a>
-							<a href="#" class="buy-btn">ACHETER <span class="price"><span class="low">$</span>22<span class="high">00</span></span></a>
-						</div>
+	<a href="#" value='.$ligne2['ID_PRODUIT'].' onClick="javascript:window.location.href=Index.php?parametre1='. $ligne2['ID_PRODUIT'].'" class="buy-btn">ACHETER <span class="price"><span class="low"></span>'. $ligne2['PRIX_PRODUIT'].'<span class="high">€</span></span></a></div>
 					</li>
-					<li>
-						<div class="product">
-							<a href="#" class="info">
-								<span class="holder">
-									<img src="css/images/image02.jpg" alt="" />
-									<span class="book-name">Book Name</span>
-									<span class="author">by John Smith</span>
-									<span class="description">Maecenas vehicula ante eu enim pharetra<br />scelerisque dignissim <br />sollicitudin nisi</span>
-								</span>
-							</a>
-							<a href="#" class="buy-btn">ACHETER <span class="price"><span class="low">$</span>22<span class="high">00</span></span></a>
-						</div>
-					</li>
-					<li>
-						<div class="product">
-							<a href="#" class="info">
-								<span class="holder">
-									<img src="css/images/image03.jpg" alt="" />
-									<span class="book-name">Book Name</span>
-									<span class="author">by John Smith</span>
-									<span class="description">Maecenas vehicula ante eu enim pharetra<br />scelerisque dignissim <br />sollicitudin nisi</span>
-								</span>
-							</a>
-							<a href="#" class="buy-btn">ACHETER <span class="price"><span class="low">$</span>22<span class="high">00</span></span></a>
-						</div>
-					</li>
-					<li>
-						<div class="product">
-							<a href="#" class="info">
-								<span class="holder">
-									<img src="css/images/image04.jpg" alt="" />
-									<span class="book-name">Book Name</span>
-									<span class="author">by John Smith</span>
-									<span class="description">Maecenas vehicula ante eu enim pharetra<br />scelerisque dignissim <br />sollicitudin nisi</span>
-								</span>
-							</a>
-							<a href="#" class="buy-btn">ACHETER <span class="price"><span class="low">$</span>22<span class="high">00</span></span></a>
-						</div>
-					</li>
-					<li>
-						<div class="product">
-							<a href="#" class="info">
-								<span class="holder">
-									<img src="css/images/image05.jpg" alt="" />
-									<span class="book-name">Book Name</span>
-									<span class="author">by John Smith</span>
-									<span class="description">Maecenas vehicula ante eu enim pharetra<br />scelerisque dignissim <br />sollicitudin nisi</span>
-								</span>
-							</a>
-							<a href="#" class="buy-btn">ACHETER <span class="price"><span class="low">$</span>22<span class="high">00</span></span></a>
-						</div>
-					</li>
-					<li>
-						<div class="product">
-							<a href="#" class="info">
-								<span class="holder">
-									<img src="css/images/image06.jpg" alt="" />
-									<span class="book-name">Book Name</span>
-									<span class="author">by John Smith</span>
-									<span class="description">Maecenas vehicula ante eu enim pharetra<br />scelerisque dignissim <br />sollicitudin nisi</span>
-								</span>
-							</a>
-							<a href="#" class="buy-btn">ACHETER <span class="price"><span class="low">$</span>22<span class="high">00</span></span></a>
-						</div>
-					</li>
-					<li>
-						<div class="product">
-							<a href="#" class="info">
-								<span class="holder">
-									<img src="css/images/image07.jpg" alt="" />
-									<span class="book-name">Book Name</span>
-									<span class="author">by John Smith</span>
-									<span class="description">Maecenas vehicula ante eu enim pharetra<br />scelerisque dignissim <br />sollicitudin nisi</span>
-								</span>
-							</a>
-							<a href="#" class="buy-btn">ACHETER <span class="price"><span class="low">$</span>22<span class="high">00</span></span></a>
-						</div>
-					</li>
-					<li>
+						';
+    }
+    
+    $leproduit=$data->quote($_GET(parametre1));
+    
+     $conn = oci_connect("SYSTEM", "azerty", "//localhost/XE");
+                                       $select_stmt4 = "INSERT INTO ACHETER (ID_PRODUIT,ID_CLIENT,QUANTITE_ACHAT,DATE_ACHAT)VALUES ($leproduit,1,1,'06/02/2015')";
+                                        $stid  = oci_parse($conn, $select_stmt3);
+                                        $result=oci_execute($stid);
+    
+                                        
+         oci_free_statement($stid); 
+oci_close($conn);                                            
+                                            ?>
+                                     
+                                    
+                                    
+					<!--<li>
 						<div class="product">
 							<a href="#" class="info">
 								<span class="holder">
@@ -289,7 +257,7 @@ oci_close($conn);
 							</a>
 							<a href="#" class="buy-btn">ACHETER <span class="price"><span class="low">$</span>22<span class="high">00</span></span></a>
 						</div>
-					</li>
+					</li>-->
 				</ul>
 			<!-- End Products -->
 			</div>
@@ -397,12 +365,12 @@ oci_close($conn);
 				<div class="col store">
 					<h4>Store</h4>
 					<ul>
-						<li><a href="#">Home</a></li>
-						<li><a href="#">Special Offers</a></li>
-						<li><a href="#">Log In</a></li>
-						<li><a href="#">Account</a></li>
-						<li><a href="#">Basket</a></li>
-						<li><a href="#">Checkout</a></li>
+						<li><a href="#" class="active">Accueil</a></li>
+				<li><a href="#">Bande dessinés</a></li>
+				<li><a href="#">Promotions</a></li>
+				<li><a href="#">Profile</a></li>
+				<li><a href="#">A propos de nous</a></li>
+				<li><a href="#">Contact</a></li>
 					</ul>
 				</div>
 				<div class="col" id="newsletter">
